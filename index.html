@@ -1,29 +1,24 @@
 <!DOCTYPE HTML>
 <html lang="es">
   <head>
+    <meta content="minimum-scale=0.0, width=320, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />  
+
+
     <title>Socket.io</title>
-    <style type="text/css">
-      .content{width:600px; height:400px; margin:100px auto 0 auto;}
-      .content .square{float:left; width:100px; height:100px;}
-      .content .red{background:#E20025}
-      .content .green{background:#00D96D}
-      .content .blue{background:#2693FF}
-      .content .yellow{background:#FFFF4D}
-      .content .gray{background:#BBBBBB}
-      .content .purple{background:#A64DFF}
-
-      #send{background:#CCC; padding:20px; width:50px;}
-
-    </style>
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="http://10.10.1.29:8080/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         $(document).on('ready',iniciar);
-        var websocket = io.connect('http://localhost:8080');
+        var websocket = io.connect('http://10.10.1.29:8080');
         var cont = 25;
 
         function iniciar(){
             websocket.on('mensajeServidor',recibirMensaje);
+
             $('.square').live('click',function(){
               $(this).addClass('clicked');
               $('#color').attr('val',getColor());
@@ -39,10 +34,10 @@
         }
 
         function recibirMensaje(datosServidor){
-            console.log(datosServidor.relid);
-            console.log(datosServidor.colorid);
+            
+            
             $('#'+datosServidor.relid).remove();
-            $('.content').append('<div id="'+(cont++)+'" class="square '+datosServidor.colorid+'"></div>');
+            $('.content').append('<div onclick="" id="'+(cont++)+'" class="square '+datosServidor.colorid+'"></div>');
         }
 
         function getColor(){
@@ -58,36 +53,48 @@
             
             return colors[number];
         }
+
+        $('.button').live('onclick',function(){
+            alert(123);
+        });
+
     </script>
   </head>
   <body>
       <div class="content">
           <input id="color" type="hidden" val="">
-          <div id="1" class="square red"></div>
-          <div id="2" class="square green"></div>
-          <div id="3" class="square blue"></div>
-          <div id="4" class="square yellow"></div>
-          <div id="5" class="square gray"></div>
-          <div id="6" class="square purple"></div>
-          <div id="7" class="square blue"></div>
-          <div id="8" class="square yellow"></div>
-          <div id="9" class="square gray"></div>
-          <div id="10" class="square purple"></div>
-          <div id="11" class="square red"></div>
-          <div id="12" class="square green"></div>
-          <div id="13" class="square purple"></div>
-          <div id="14" class="square red"></div>
-          <div id="15" class="square green"></div>
-          <div id="16" class="square gray"></div>
-          <div id="17" class="square purple"></div>
-          <div id="18" class="square blue"></div>
-          <div id="19" class="square gray"></div>
-          <div id="20" class="square purple"></div>
-          <div id="21" class="square blue"></div>
-          <div id="22" class="square yellow"></div>
-          <div id="23" class="square gray"></div>
-          <div id="24" class="square purple"></div>
+          <div onclick='' id="1" class="square red"></div>
+          <div onclick='' id="2" class="square green"></div>
+          <div onclick='' id="3" class="square blue"></div>
+          <div onclick='' id="4" class="square yellow"></div>
+
+          <div onclick='' id="5" class="square gray"></div>
+          <div onclick='' id="6" class="square purple"></div>
+          <div onclick='' id="7" class="square blue"></div>
+          <div onclick='' id="8" class="square yellow"></div>
+
+          <div onclick='' id="9" class="square gray"></div>
+          <div onclick='' id="10" class="square purple"></div>
+          <div onclick='' id="11" class="square red"></div>
+          <div onclick='' id="12" class="square green"></div>
+
+          <div onclick='' id="13" class="square purple"></div>
+          <div onclick='' id="14" class="square red"></div>
+          <div onclick='' id="15" class="square green"></div>
+          <div onclick='' id="16" class="square gray"></div>
+
+          <div onclick='' id="17" class="square purple"></div>
+          <div onclick='' id="18" class="square blue"></div>
+          <div onclick='' id="19" class="square gray"></div>
+          <div onclick='' id="20" class="square purple"></div>
+
+          <div onclick='' id="21" class="square blue"></div>
+          <div onclick='' id="22" class="square yellow"></div>
+          <div onclick='' id="23" class="square gray"></div>
+          <div onclick='' id="24" class="square purple"></div>
+          
       </div>
       
+      <!--div class="button">CLICK</div-->
   </body>
 </html>
