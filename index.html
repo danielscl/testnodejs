@@ -14,7 +14,7 @@
     <script type="text/javascript">
         $(document).on('ready',iniciar);
         var websocket = io.connect('http://10.10.1.29:8080');
-        var cont = 25;
+        var cont = 25;        
 
         function iniciar(){
             websocket.on('mensajeServidor',recibirMensaje);
@@ -34,10 +34,16 @@
         }
 
         function recibirMensaje(datosServidor){
+            console.log(datosServidor.selectedid);
+            if(datosServidor.addid==0){
+                $('.selected').removeClass('selected');
+                $('#'+datosServidor.selectedid).addClass('selected');
+            }
+            else{
+                $('#'+datosServidor.relid).remove();
+                $('.content').append('<div onclick="" id="'+(cont++)+'" class="square '+datosServidor.colorid+'"></div>');
+            }
             
-            
-            $('#'+datosServidor.relid).remove();
-            $('.content').append('<div onclick="" id="'+(cont++)+'" class="square '+datosServidor.colorid+'"></div>');
         }
 
         function getColor(){
@@ -54,16 +60,12 @@
             return colors[number];
         }
 
-        $('.button').live('onclick',function(){
-            alert(123);
-        });
-
     </script>
   </head>
   <body>
       <div class="content">
           <input id="color" type="hidden" val="">
-          <div onclick='' id="1" class="square red"></div>
+          <div onclick='' id="1" class="square red selected"></div>
           <div onclick='' id="2" class="square green"></div>
           <div onclick='' id="3" class="square blue"></div>
           <div onclick='' id="4" class="square yellow"></div>
@@ -95,6 +97,5 @@
           
       </div>
       
-      <!--div class="button">CLICK</div-->
   </body>
 </html>

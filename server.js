@@ -8,4 +8,5 @@ function arranque(usuario){
 
 function emitir(data){
 	myserver.sockets.emit('mensajeServidor',data);
+	console.log(data);
 }

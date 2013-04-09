@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="es">
+  <head>
+    <meta content="minimum-scale=0.0, width=320, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />  
+
+
+    <title>Controller Socket.io</title>
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://10.10.1.29:8080/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).on('ready',iniciar);
+        var websocket = io.connect('http://10.10.1.29:8080');
+        var selected = 1;
+        var add = 0;
+
+        function iniciar(){
+
+            //CONTROLLERS
+            $('.up').live('click',function(){
+                if(selected>4)
+                    selected-=4;
+                enviarMensaje();
+            });
+
+            $('.down').live('click',function(){
+                if(selected<21)
+                    selected+=4;
+                enviarMensaje();
+            });
+
+            $('.left').live('click',function(){
+                if(selected>1)
+                    selected-=1;
+                enviarMensaje();
+            });
+
+            $('.right').live('click',function(){
+                if(selected<24)
+                  selected+=1;
+                enviarMensaje();
+            });
+
+
+            $('.button').live('click',function(){
+                add=1;
+                enviarMensaje();
+            });
+        }
+
+        function enviarMensaje(){
+            var obj = jQuery.parseJSON('{"selectedid":"'+selected+'","addid":"'+add+'","relid":"'+selected+'","colorid":"'+getColor()+'"}');
+            if(add==1)
+                add=0;
+            websocket.emit('nuevoDato',obj);
+        }
+
+        function recibirMensaje(datosServidor){
+            console.log(datosServidor);
+        }
+
+        function getColor(){
+            var colors = []
+                colors[1] = 'red';
+                colors[2] = 'green';
+                colors[3] = 'blue';
+                colors[4] = 'yellow';
+                colors[5] = 'gray';
+                colors[6] = 'purple';
+
+            var number = 1 + Math.floor(Math.random() * 6);
+            
+            return colors[number];
+        }
+
+    </script>
+  </head>
+  <body>
+      <!--div onclick="" class="button">ERASE</div-->
+
+      <div class="controller">
+        <div class="pad">
+            <div onclick="" class="arrow up"></div>
+            <div onclick="" class="arrow left"></div>
+            <div onclick="" class="arrow right"></div>
+            <div onclick="" class="arrow down"></div>
+        </div>
+          <div onclick="" class="button black">DELETE</div>
+      </div>
+  </body>
+</html>
