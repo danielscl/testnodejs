@@ -7,5 +7,5 @@ function arranque(usuario){
 }
 
 function emitir(data){
-	myserver.sockets.emit('nombreDesdeServidor',data);
+	myserver.sockets.emit('mensajeServidor',data);
 }
